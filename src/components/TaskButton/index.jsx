@@ -1,9 +1,9 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import CheckBox from '../CheckBox';
+import { dateToStringHour } from '../../functions/aux';
 
 export default function TaskButton({ task, onClick, style }){
-
     return (
         <View style={[ styles.container, style ]} >
             <View style={styles.topContainer} >
@@ -27,7 +27,11 @@ export default function TaskButton({ task, onClick, style }){
             </View>
             <View style={styles.bottomContainer} >
                 <Text style={[styles.text, styles.textHours]} >
-                    15:00-16:00
+                    {
+                        task && task.endAt
+                        ? `${dateToStringHour(task.estimatedAt)}-${dateToStringHour(task.endAt)}`
+                        : dateToStringHour(task.estimatedAt)
+                    }
                 </Text>
             </View>
         </View>

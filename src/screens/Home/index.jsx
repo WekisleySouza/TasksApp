@@ -1,8 +1,10 @@
-import { FlatList, ImageBackground, Text, View } from 'react-native';
+import { FlatList, ImageBackground, Text, Touchable, TouchableOpacity, View } from 'react-native';
 import images from '../../styles/images';
 import styles from './styles';
 import TaskButton from '../../components/TaskButton';
 import tasks from '../../mock/tasks';
+import MyIcon from '../../components/MyIcon';
+import icons from '../../styles/icons';
 
 export default function Home(){
 
@@ -14,12 +16,20 @@ export default function Home(){
                     style={{ flex: 1 }}
                 >
                     <View style={styles.topContainer} >
-                        <Text style={styles.topContainerText} >
-                            22 de
-                        </Text>
-                        <Text style={styles.topContainerText} >
-                            Agosto
-                        </Text>
+                        <View style={styles.topTextContainer} >
+                            <Text style={styles.topContainerText} >
+                                22 de
+                            </Text>
+                            <Text style={styles.topContainerText} >
+                                Agosto
+                            </Text>
+                        </View>
+                        <View style={styles.topIconsContainer} >
+                            <MyIcon
+                                icon={icons.calendar}
+                                style={styles.icon}
+                            />
+                        </View>
                     </View>
                 </ImageBackground>
             </View>
@@ -38,6 +48,14 @@ export default function Home(){
                     )}
                 />
             </View>
+            <TouchableOpacity
+                style={styles.addButton}
+            >
+                <MyIcon
+                    style={styles.addIcon}
+                    icon={icons.plus}
+                />
+            </TouchableOpacity>
         </View>
     )
 }
