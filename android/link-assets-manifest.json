@@ -1,0 +1,21 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Judson/Judson-Bold.ttf",
+      "sha1": "67db75a38633cbf143a754d0e1585e1aad1cee19"
+    },
+    {
+      "path": "src/assets/fonts/Judson/Judson-Italic.ttf",
+      "sha1": "661088ce7beccc52697d659c7fbcb3672c51c7a4"
+    },
+    {
+      "path": "src/assets/fonts/Judson/Judson-Regular.ttf",
+      "sha1": "f15a474eff6439ed45b4692450576cab93c6e151"
+    },
+    {
+      "path": "src/assets/fonts/Ledger/Ledger-Regular.ttf",
+      "sha1": "a0caa2fd76d8640e506238bef1543eef76fddc49"
+    }
+  ]
+}

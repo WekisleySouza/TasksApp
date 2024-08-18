@@ -2,6 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import TabRoute from './Tab.routes';
+import Login from '../screens/Login';
 
 const Stack = createNativeStackNavigator()
 
@@ -10,7 +11,11 @@ const getStacks = () => {
         {
             name: 'TabNavigator',
             component: TabRoute,
-        }
+        },
+        {
+            name: 'Login',
+            component: Login,
+        },
     ]
 
     return stacks.map((tab, index) => (
@@ -27,7 +32,9 @@ const getStacks = () => {
 export default function StackRoute(){
     return (
         <NavigationContainer>
-            <Stack.Navigator>
+            <Stack.Navigator
+                initialRouteName='TabNavigator'
+            >
                 {getStacks()}
             </Stack.Navigator>
         </NavigationContainer>
