@@ -1,9 +1,9 @@
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 
 export default function Home(){
     return (
         <View>
-            <Text>Snipet gerado para Home</Text>
+            
         </View>
     )
 }

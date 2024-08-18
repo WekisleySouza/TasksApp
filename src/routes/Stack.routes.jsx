@@ -13,8 +13,9 @@ const getStacks = () => {
         }
     ]
 
-    return stacks.map(tab => (
+    return stacks.map((tab, index) => (
         <Stack.Screen
+            key={index}
             { ...tab }
             options={{
                 header: () => false,
