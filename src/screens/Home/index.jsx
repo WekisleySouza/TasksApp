@@ -1,8 +1,11 @@
-import { ImageBackground, Text, View } from 'react-native';
+import { FlatList, ImageBackground, Text, View } from 'react-native';
 import images from '../../styles/images';
 import styles from './styles';
+import TaskButton from '../../components/TaskButton';
+import tasks from '../../mock/tasks';
 
 export default function Home(){
+
     return (
         <View style={styles.container} >
             <View style={styles.backgroundImage} >
@@ -20,7 +23,21 @@ export default function Home(){
                     </View>
                 </ImageBackground>
             </View>
-
+            <View style={styles.bottomContainer} >
+                <FlatList
+                    showsVerticalScrollIndicator={false}
+                    style={styles.flatListContainer}
+                    keyExtractor={(_, index) => index}
+                    data={tasks}
+                    renderItem={({ item }) => (
+                        <TaskButton
+                            style={styles.taskButton}
+                            task={item}
+                            onClick={() => console.log('Task clicked')}
+                        />
+                    )}
+                />
+            </View>
         </View>
     )
 }

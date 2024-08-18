@@ -19,4 +19,16 @@ export default StyleSheet.create({
         fontFamily: fonts.primaryFont,
         fontSize: 50,
     },
+    bottomContainer: {
+        flex: 1,
+        alignItems: 'center',
+    },
+    flatListContainer: {
+        marginTop: 10,
+        width: '85%',
+    },
+    taskButton: {
+        width: '100%',
+        marginBottom: 10,
+    }
 })
