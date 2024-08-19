@@ -1,16 +1,15 @@
 import { useState } from 'react';
-import { View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 
 import MyModal from '../MyModal';
 
 import Task from '../../models/Task';
 import styles from './styles';
 
-export default function ModalAddTask({ isVisible, onCancel }){
+export default function ModalAddTask({ isVisible, onCancel, tasksState }){
     const [task, setTask] = useState(new Task())
-
     const handleConfirm = () => {
-        console.log(task)
+
     }
 
     return (

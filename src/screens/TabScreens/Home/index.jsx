@@ -2,21 +2,21 @@ import { FlatList, ImageBackground, Text, TouchableOpacity, View } from 'react-n
 import images from '../../../styles/images';
 import styles from './styles';
 import TaskButton from '../../../components/TaskButton';
-import tasks from '../../../mock/tasks';
 import MyIcon from '../../../components/MyIcon';
 import icons from '../../../styles/icons';
-import MyWanning from '../../../components/MyModal';
 import { useState } from 'react';
-import MyModal from '../../../components/MyModal';
 import ModalAddTask from '../../../components/ModalAddTask';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Home(){
-    const [showAddPopup, setShowAddPopup] = useState(true)
+    const [showAddPopup, setShowAddPopup] = useState(false)
+    const tasks = useSelector(state => state.tasksState)
+    const dispatch = useDispatch()
 
     return (
         <View style={styles.container} >
             <ModalAddTask
-                isVisible={true}
+                isVisible={showAddPopup}
                 onCancel={() => setShowAddPopup(false)}
             />
             <View style={styles.backgroundImage} >

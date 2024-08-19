@@ -34,7 +34,7 @@ export default StyleSheet.create({
         marginEnd: 23,
     },
     text: {
-        color: fonts.secondaryColor,
+        color: fonts.primaryColor,
         fontFamily: fonts.secondaryFont,
     },
     textTitle: {

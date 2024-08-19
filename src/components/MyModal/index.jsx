@@ -17,9 +17,9 @@ export default function MyModal({
                     style={styles.dummyArea}
                     onPress={onCancel}
                 />
-                    <View style={[styles.container, style]} >
-                        {children}
-                    </View>
+                <View style={[styles.container, style]} >
+                    {children}
+                </View>
                 <TouchableOpacity 
                     style={styles.dummyArea}
                     onPress={onCancel}
