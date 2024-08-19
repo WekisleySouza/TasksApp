@@ -3,7 +3,7 @@ import colors from "../../styles/colors";
 
 export default StyleSheet.create({
     container: {
-        flex: 2,
+        height: "50%",
         backgroundColor: colors.primaryColor,
     },
     modal: {

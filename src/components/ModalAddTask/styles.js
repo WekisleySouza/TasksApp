@@ -4,64 +4,62 @@ import colors from "../../styles/colors";
 
 export default StyleSheet.create({
     container: {
-        flex: 10,
+        height: 350,
         width: '90%',
         backgroundColor: colors.primaryColor,
         padding: 20,
         borderRadius: 20,
-    },
-    scroll: {
-        // backgroundColor: colors.secondaryColor,
+        gap: 15
     },
     input: {
         padding: 10,
-        fontSize: 15,
-        fontFamily: fonts.primaryFont,
-        borderBottomWidth: 1,
+        fontSize: 18,
+        fontFamily: fonts.secondaryFont,
+        borderBottomWidth: 2,
         borderBottomColor: colors.tertiaryColor,
         backgroundColor: colors.quartenaryColor,
-        borderTopEndRadius: 8,
-        borderTopStartRadius: 8,
+        borderTopEndRadius: 12,
+        borderTopStartRadius: 12,
     },
     titleContainer: {
         height: 50,
-        marginBottom: 25,
     },
     titleInput: {
-        fontSize: 20,
         height: 50,
+        fontFamily: fonts.primaryFont,
+        fontSize: 20,
         backgroundColor: colors.primaryColor,
     },
     dateTimeContainer: {
-        height: 40,
-        marginBottom: 15,
+        height: 50, 
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        // backgroundColor: 'red',
     },
     dateTimeInput: {
-        height: 37,
-        
+        height: 40,
         width: '40%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    dateTimeText: {
+        fontFamily: fonts.secondaryFont,
+        color: fonts.primaryColor,
+        fontSize: 18,
     },
     descriptionContainer: {
-        height: 300,
+        height: 70,
         width: '100%',
-        // backgroundColor: 'blue',
     },
     descriptionInput: {
-        height: 300,
+        height: 70,
         width: '100%',
         borderBottomWidth: 0,
         borderTopWidth: 1,
         borderTopColor: colors.tertiaryColor,
-        backgroundColor: colors.quartenaryColor,
-        // backgroundColor: 'blue',
     },
     buttonsContainer: {
-        // backgroundColor: 'green',
-        height: 50,
+        height: 100,
         width: '100%',
         flexDirection: 'row',
         justifyContent:'space-between',
@@ -75,7 +73,9 @@ export default StyleSheet.create({
         alignSelf: 'center',
     },
     buttonText: {
+        fontFamily: fonts.secondaryFont,
         color: fonts.primaryColor,
+        fontSize: 18,
     },
     cancelButton: {
         backgroundColor: colors.primaryColor,
@@ -84,6 +84,5 @@ export default StyleSheet.create({
     },
     confirmButton: {
         backgroundColor: colors.secondaryColor,
-        
     },
 })
