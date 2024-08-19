@@ -1,15 +1,24 @@
-import { FlatList, ImageBackground, Text, Touchable, TouchableOpacity, View } from 'react-native';
-import images from '../../styles/images';
+import { FlatList, ImageBackground, Text, TouchableOpacity, View } from 'react-native';
+import images from '../../../styles/images';
 import styles from './styles';
-import TaskButton from '../../components/TaskButton';
-import tasks from '../../mock/tasks';
-import MyIcon from '../../components/MyIcon';
-import icons from '../../styles/icons';
+import TaskButton from '../../../components/TaskButton';
+import tasks from '../../../mock/tasks';
+import MyIcon from '../../../components/MyIcon';
+import icons from '../../../styles/icons';
+import MyWanning from '../../../components/MyModal';
+import { useState } from 'react';
+import MyModal from '../../../components/MyModal';
+import ModalAddTask from '../../../components/ModalAddTask';
 
 export default function Home(){
+    const [showAddPopup, setShowAddPopup] = useState(true)
 
     return (
         <View style={styles.container} >
+            <ModalAddTask
+                isVisible={true}
+                onCancel={() => setShowAddPopup(false)}
+            />
             <View style={styles.backgroundImage} >
                 <ImageBackground
                     source={images.background_home}
@@ -50,6 +59,7 @@ export default function Home(){
             </View>
             <TouchableOpacity
                 style={styles.addButton}
+                onPress={() => setShowAddPopup(true)}
             >
                 <MyIcon
                     style={styles.addIcon}

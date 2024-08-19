@@ -6,9 +6,9 @@ import icons from '../styles/icons';
 import { StyleSheet } from 'react-native';
 
 import MyIcon from '../components/MyIcon';
-import Home from '../screens/Home';
-import Tasks from '../screens/Tasks';
-import Settings from '../screens/Settings';
+import Home from '../screens/TabScreens/Home';
+import Tasks from '../screens/TabScreens/Tasks';
+import Settings from '../screens/TabScreens/Settings';
 
 const Tab = createBottomTabNavigator()
 
