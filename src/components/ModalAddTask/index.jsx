@@ -5,11 +5,15 @@ import MyModal from '../MyModal';
 
 import Task from '../../models/Task';
 import styles from './styles';
+import { useDispatch } from 'react-redux';
+import { addTask } from '../../data/redux/tasksStateSlice';
 
 export default function ModalAddTask({ isVisible, onCancel, tasksState }){
     const [task, setTask] = useState(new Task())
-    const handleConfirm = () => {
+    const dispatch = useDispatch()
 
+    const handleConfirm = () => {
+        dispatch(addTask('addTask11'))
     }
 
     return (
