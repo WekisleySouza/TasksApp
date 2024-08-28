@@ -1,24 +1,35 @@
-import MyModal from '../MyModal';
 import DatePicker from 'react-native-date-picker';
-import { useState } from 'react';
+import colors from '../../styles/colors';
+import { Text, TouchableOpacity, View } from 'react-native';
+import styles from './styles';
 
 export default function MyDateTimePicker({
-    isVisible,
-    onCancel,
+    date,
+    mode,
+    setDate,
+    onConfirm
 }){
-    const [date, setDate] = useState(new Date())
     return (
-        <MyModal
-            isVisible={isVisible}
-            onCancel={onCancel}
-        >
-            <DatePicker date={date} onDateChange={setDate}
-                mode='date'
+        <View style={styles.container}>
+            <DatePicker 
+                date={date} 
+                onDateChange={setDate}
+                mode={mode}
                 dividerColor={colors.quartenaryColor}
                 style={{
                     
                 }}
             />
-        </MyModal>
+            <View style={styles.buttonsContainer} >
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={onConfirm}
+                >
+                    <Text style={styles.buttonText}>
+                        Confirmar
+                    </Text>
+                </TouchableOpacity>
+            </View>
+        </View>
     )
 }

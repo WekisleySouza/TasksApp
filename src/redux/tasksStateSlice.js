@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import tasks from "../../mock/tasks";
+import Task from "../models/Task";
 
 const tasksStateSlice = createSlice({
     name: 'tasks',
-    initialState: [...tasks],
+    initialState: [],
     reducers: {
         addTask: (state, {payload, type}) => {
             return [ ...state, payload ]

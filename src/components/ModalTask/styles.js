@@ -9,11 +9,6 @@ export default StyleSheet.create({
         backgroundColor: colors.primaryColor,
         padding: 20,
         borderRadius: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    subContainer: {
-        width: '100%',
         gap: 15
     },
     input: {

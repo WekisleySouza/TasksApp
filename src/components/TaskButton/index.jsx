@@ -27,11 +27,7 @@ export default function TaskButton({ task, onClick, style }){
             </View>
             <View style={styles.bottomContainer} >
                 <Text style={[styles.text, styles.textHours]} >
-                    {
-                        task && task.endAt
-                        ? `${dateToStringHour(task.estimatedAt)}-${dateToStringHour(task.endAt)}`
-                        : dateToStringHour(task.estimatedAt)
-                    }
+                    {dateToStringHour(task.toDoDate)}
                 </Text>
             </View>
         </View>

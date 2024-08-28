@@ -6,14 +6,19 @@ import MyModal from '../MyModal';
 import Task from '../../models/Task';
 import styles from './styles';
 import { useDispatch } from 'react-redux';
-import { addTask } from '../../data/redux/tasksStateSlice';
+import { addTask } from '../../redux/tasksStateSlice';
+import MyDateTimePicker from '../MyDateTimePicker';
+import { dateToStringDate, dateToStringHour } from '../../functions/aux';
 
-export default function ModalAddTask({ isVisible, onCancel, tasksState }){
-    const [task, setTask] = useState(new Task())
+export default function ModalAddTask({ isVisible, onCancel }){
+    const [task, _ ] = useState(new Task())
+    const [showTimePicker, setShowTimePicker] = useState(false)
+    const [showDatePicker, setShowDatePicker] = useState(false)
     const dispatch = useDispatch()
 
     const handleConfirm = () => {
-        dispatch(addTask('addTask11'))
+        dispatch(addTask(task.taskToSlice))
+        onCancel()
     }
 
     return (
@@ -22,54 +27,81 @@ export default function ModalAddTask({ isVisible, onCancel, tasksState }){
             onCancel={onCancel}
             style={styles.container}
         >
-                <View style={styles.titleContainer} >
-                    <TextInput
-                        style={[styles.input, styles.titleInput]}
-                        placeholder='Título da Tarefa'
-                        onChangeText={text => setTask({ ...task, title: text })}
-                    />
+            {
+                showTimePicker
+                ? 
+                <MyDateTimePicker
+                    date={task.toDoDate}
+                    setDate={date => { task.toDoDate = date }}
+                    mode='time'
+                    onConfirm={() => setShowTimePicker(false)}
+                />
+                :
+                showDatePicker
+                ? 
+                <MyDateTimePicker
+                    date={task.toDoDate}
+                    setDate={date => { task.toDoDate = date }}
+                    mode='date'
+                    onConfirm={() => setShowDatePicker(false)}
+                />
+                : 
+                <View
+                    style={styles.subContainer}
+                >
+                    <View style={styles.titleContainer} >
+                        <TextInput
+                            style={[styles.input, styles.titleInput]}
+                            placeholder='Título da Tarefa'
+                            onChangeText={text => { task.title = text }}
+                        />
+                    </View>
+                    <View style={styles.dateTimeContainer} >
+                        <TouchableOpacity 
+                            style={[styles.input, styles.dateTimeInput]}
+                            onPress={() => setShowDatePicker(true)}
+                        >
+                            <Text style={styles.dateTimeText} >
+                                {dateToStringDate(task.toDoDate)}
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            style={[styles.input, styles.dateTimeInput]}
+                            onPress={() => setShowTimePicker(true)}
+                        >
+                            <Text style={styles.dateTimeText} >
+                                {dateToStringHour(task.toDoDate)}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.descriptionContainer} >
+                        <TextInput
+                            style={[styles.input, styles.descriptionInput]}
+                            multiline={true}
+                            placeholder='Descreva a tarefa aqui...'
+                            onChangeText={text => { task.description = text }}
+                        />
+                    </View>
+                    <View style={styles.buttonsContainer} >
+                        <TouchableOpacity
+                            style={[styles.button, styles.cancelButton]}
+                            onPress={onCancel}
+                        >
+                            <Text style={styles.buttonText}>
+                                Cancelar
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[styles.button, styles.confirmButton]}
+                            onPress={handleConfirm}
+                        >
+                            <Text style={styles.buttonText}>
+                                Confirmar
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-                <View style={styles.dateTimeContainer} >
-                    <TouchableOpacity 
-                        style={[styles.input, styles.dateTimeInput]}
-                    >
-                        <Text style={styles.dateTimeText} >
-                            00/00/0000
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity 
-                        style={[styles.input, styles.dateTimeInput]}
-                    >
-                        <Text style={styles.dateTimeText} >
-                            00:00-01:00
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.descriptionContainer} >
-                    <TextInput
-                        style={[styles.input, styles.descriptionInput]}
-                        placeholder='Descreva a tarefa aqui...'
-                        onChangeText={text => setTask({ ...task, description: text })}
-                    />
-                </View>
-                <View style={styles.buttonsContainer} >
-                    <TouchableOpacity
-                        style={[styles.button, styles.cancelButton]}
-                        onPress={onCancel}
-                    >
-                        <Text style={styles.buttonText}>
-                            Cancelar
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[styles.button, styles.confirmButton]}
-                        onPress={handleConfirm}
-                    >
-                        <Text style={styles.buttonText}>
-                            Confirmar
-                        </Text>
-                    </TouchableOpacity>
-                </View>
+            }
         </MyModal>
     )
 }
