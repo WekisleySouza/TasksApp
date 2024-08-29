@@ -11,7 +11,7 @@ import MyDateTimePicker from '../MyDateTimePicker';
 import { dateToStringDate, dateToStringHour } from '../../functions/aux';
 
 export default function ModalAddTask({ isVisible, onCancel }){
-    const [task, setTask ] = useState(new Task())
+    const [task, setTask] = useState(new Task())
     const [showTimePicker, setShowTimePicker] = useState(false)
     const [showDatePicker, setShowDatePicker] = useState(false)
     const dispatch = useDispatch()

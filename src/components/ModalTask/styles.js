@@ -4,11 +4,16 @@ import colors from "../../styles/colors";
 
 export default StyleSheet.create({
     container: {
-        height: 350,
+        height: 400,
         width: '90%',
         backgroundColor: colors.primaryColor,
         padding: 20,
         borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    subContainer: {
+        width: '100%',
         gap: 15
     },
     input: {
@@ -20,6 +25,17 @@ export default StyleSheet.create({
         backgroundColor: colors.quartenaryColor,
         borderTopEndRadius: 12,
         borderTopStartRadius: 12,
+    },
+    otherButtonsContainer: {
+        height: 50,
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    icons: {
+        height: 35,
+        width: 35,
     },
     titleContainer: {
         height: 50,

@@ -12,18 +12,14 @@ export default function TaskButton({ task, onClick, style }){
                         checked={task && task.checked}
                     />
                 </View>
-                <View style={styles.topNameContainer} >
-                    <TouchableOpacity
-                        style={{ flex: 1 }}
-                        onClick={onClick}
-                    >
-                        <View style={styles.topNameContainer} >
-                            <Text style={[styles.text, styles.textTitle]} >
-                                {task.title}
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity
+                    style={styles.topNameContainer}
+                    onPress={onClick}
+                >
+                    <Text style={[styles.text, styles.textTitle]} >
+                        {task.title}
+                    </Text>
+                </TouchableOpacity>
             </View>
             <View style={styles.bottomContainer} >
                 <Text style={[styles.text, styles.textHours]} >

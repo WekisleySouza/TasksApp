@@ -8,9 +8,12 @@ import { useEffect, useState } from 'react';
 import ModalAddTask from '../../../components/ModalAddTask';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTasks } from '../../../redux/tasksStateSlice';
+import ModalTask from '../../../components/ModalTask/index';
 
 export default function Home(){
     const [showAddPopup, setShowAddPopup] = useState(false)
+    const [showTaskPopup, setShowTaskPopup] = useState(false)
+    const [selectedTask, setSelectedTask] = useState({})
     const tasks = useSelector(state => state.tasksState)
     const dispatch = useDispatch()
 
@@ -18,8 +21,18 @@ export default function Home(){
         dispatch(fetchTasks())
     }, [])
 
+    const handleShowTaskPopup = (task) => {
+        setSelectedTask(task)
+        setShowTaskPopup(true)
+    }
+
     return (
         <View style={styles.container} >
+            <ModalTask
+                taskProp={selectedTask}
+                isVisible={showTaskPopup}
+                onCancel={() => setShowTaskPopup(false)}
+            />
             <ModalAddTask
                 isVisible={showAddPopup}
                 onCancel={() => setShowAddPopup(false)}
@@ -57,7 +70,7 @@ export default function Home(){
                         <TaskButton
                             style={styles.taskButton}
                             task={item}
-                            onClick={() => console.log('Task clicked')}
+                            onClick={() => handleShowTaskPopup(item)}
                         />
                     )}
                 />
