@@ -27,7 +27,7 @@ export default function TaskButton({ task, onClick, style }){
             </View>
             <View style={styles.bottomContainer} >
                 <Text style={[styles.text, styles.textHours]} >
-                    {dateToStringHour(task.toDoDate)}
+                    {dateToStringHour(new Date(task.toDoDate))}
                 </Text>
             </View>
         </View>

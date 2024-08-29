@@ -11,7 +11,7 @@ import MyDateTimePicker from '../MyDateTimePicker';
 import { dateToStringDate, dateToStringHour } from '../../functions/aux';
 
 export default function ModalAddTask({ isVisible, onCancel }){
-    const [task, _ ] = useState(new Task())
+    const [task, setTask ] = useState(new Task())
     const [showTimePicker, setShowTimePicker] = useState(false)
     const [showDatePicker, setShowDatePicker] = useState(false)
     const dispatch = useDispatch()
@@ -21,6 +21,14 @@ export default function ModalAddTask({ isVisible, onCancel }){
         onCancel()
     }
 
+    const handleTitleChange = (text) => {
+        setTask(new Task(text, task.description, task.toDoDate, task.duration, task.doneDate));
+    };
+
+    const handleDescriptionChange = (text) => {
+        setTask(new Task(task.title, text, task.toDoDate, task.duration, task.doneDate));
+    };
+    
     return (
         <MyModal
             isVisible={isVisible}
@@ -53,7 +61,8 @@ export default function ModalAddTask({ isVisible, onCancel }){
                         <TextInput
                             style={[styles.input, styles.titleInput]}
                             placeholder='Título da Tarefa'
-                            onChangeText={text => { task.title = text }}
+                            value={task.title}
+                            onChangeText={handleTitleChange}
                         />
                     </View>
                     <View style={styles.dateTimeContainer} >
@@ -79,7 +88,8 @@ export default function ModalAddTask({ isVisible, onCancel }){
                             style={[styles.input, styles.descriptionInput]}
                             multiline={true}
                             placeholder='Descreva a tarefa aqui...'
-                            onChangeText={text => { task.description = text }}
+                            value={task.description}
+                            onChangeText={handleDescriptionChange}
                         />
                     </View>
                     <View style={styles.buttonsContainer} >

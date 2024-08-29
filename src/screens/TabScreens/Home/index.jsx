@@ -4,13 +4,19 @@ import styles from './styles';
 import TaskButton from '../../../components/TaskButton';
 import MyIcon from '../../../components/MyIcon';
 import icons from '../../../styles/icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ModalAddTask from '../../../components/ModalAddTask';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchTasks } from '../../../redux/tasksStateSlice';
 
 export default function Home(){
     const [showAddPopup, setShowAddPopup] = useState(false)
     const tasks = useSelector(state => state.tasksState)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchTasks())
+    }, [])
 
     return (
         <View style={styles.container} >

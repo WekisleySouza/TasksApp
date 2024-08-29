@@ -1,7 +1,7 @@
 const dateToStringHour = (date) => {
     try {
-        const hours = (date.getHours() > 0)? date.getHours() : '00'
-        const minutes = (date.getMinutes() > 0)? date.getMinutes() : '00'
+        const hours = (date.getHours() > 9) ? date.getHours() : `0${date.getHours()}`
+        const minutes = (date.getMinutes() > 9) ? date.getMinutes() : `0${date.getMinutes()}`
         return `${hours}:${minutes}`
     } catch (err) {
         return '--:--'

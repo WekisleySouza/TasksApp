@@ -1,19 +1,19 @@
 export default class Task{
     constructor(title = '', description = '', toDoDate = '', duration = 0, doneDate = ''){
         this._title = title
-        this.description = description
+        this._description = description
         this._toDoDate = toDoDate
-        this.duration = duration
-        this.doneDate = doneDate
+        this._duration = duration
+        this._doneDate = doneDate
     }
 
     get taskToSlice(){
         return {
-            title: this.title,
-            description: this.description,
+            title: this._title,
+            description: this._description,
             toDoDate: this._toDoDate,
-            duration: this.duration,
-            doneDate: this.doneDate,
+            duration: this._duration,
+            doneDate: this._doneDate,
         }
     }
     
@@ -31,6 +31,22 @@ export default class Task{
 
     set description(description){
         this._description = description
+    }
+
+    get duration(){
+        return this._duration
+    }
+
+    set duration(duration){
+        this._duration = duration
+    }
+
+    get doneDate(){
+        return this._doneDate.length > 0 ? new Date(this._doneDate) : new Date()
+    }
+    
+    set doneDate(date){
+        this._doneDate = date.toUTCString()
     }
 
     get toDoDate(){
