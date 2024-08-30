@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import TabRoute from './Tab.routes';
 import Login from '../screens/StackScreens/Login';
-import { useSelector } from 'react-redux';
+import SplashScreen from '../screens/StackScreens/SplashScreen';
 
 const Stack = createNativeStackNavigator()
 
@@ -16,6 +16,10 @@ const getStacks = () => {
         {
             name: 'Login',
             component: Login,
+        },
+        {
+            name: 'SplashScreen',
+            component: SplashScreen,
         },
     ]
 
@@ -31,12 +35,11 @@ const getStacks = () => {
 }
 
 export default function StackRoute(){
-    const user = useSelector(state => state.userState)
 
     return (
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName={user.isLogged ? 'TabNavigator' : 'Login'}
+                initialRouteName={'SplashScreen'}
             >
                 {getStacks()}
             </Stack.Navigator>

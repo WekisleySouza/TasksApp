@@ -7,7 +7,7 @@ const storeDataAsync = async (dataName, value) => {
       return true
     } catch (err) {
       console.log(`Erro ao salvar ${dataName}: ${err}`);
-      return false
+      throw err
     }
 };
 
@@ -15,9 +15,9 @@ const getDataAsync = async (dataName) => {
   try {
     const jsonValue = await AsyncStorage.getItem(dataName);
     return jsonValue != null ? JSON.parse(jsonValue) : null;
-  } catch (e) {
+  } catch (err) {
     console.log(`Erro ao carregar ${dataName}: ${err}`);
-    return false
+    throw err
   }
 };
 

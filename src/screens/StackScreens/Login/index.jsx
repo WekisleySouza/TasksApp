@@ -11,7 +11,7 @@ import { signin, signup } from '../../../redux/userStateSlice';
 
 export default function Login(){
     const [user, setUser] = useState(new User())
-    const [hasAccount, setHasAccount] = useState(false)
+    const [hasAccount, setHasAccount] = useState(true)
     const [fieldsIsValid, setFieldsIsValid] = useState(true)
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
     const dispatch = useDispatch()
@@ -19,16 +19,16 @@ export default function Login(){
     useEffect(() => {
         const changeFieldsValidation = () => {
             const validation =  validator.isEmail(user.email)
-                                && user.password === passwordConfirmation
                                 &&  user.password.length > 5
-                                &&  user.name.length > 1
+                                &&(hasAccount
+                                || (user.password === passwordConfirmation
+                                &&  user.name.length > 1))
             setFieldsIsValid(validation)
         }
         changeFieldsValidation()
     }, [user])
 
     const handleButtonClick = () => {
-        console.log('Clicou: ', user)
         if(hasAccount){
             dispatch(signin(user.userToSlice))
         } else {
@@ -41,7 +41,11 @@ export default function Login(){
         <View style={styles.container} >
             <View style={styles.headerContainer} >
                 <Text style={styles.headerText} >
-                    Cadastrar
+                        {
+                            !hasAccount
+                            ? 'Cadastrar'
+                            : 'Login'
+                        }
                 </Text>
                 <MyIcon
                     style={styles.icon}
