@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import TabRoute from './Tab.routes';
 import Login from '../screens/StackScreens/Login';
+import { useSelector } from 'react-redux';
 
 const Stack = createNativeStackNavigator()
 
@@ -30,10 +31,12 @@ const getStacks = () => {
 }
 
 export default function StackRoute(){
+    const user = useSelector(state => state.userState)
+
     return (
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName='Login'
+                initialRouteName={user.isLogged ? 'TabNavigator' : 'Login'}
             >
                 {getStacks()}
             </Stack.Navigator>
