@@ -23,6 +23,7 @@ const dateToStringDate = (date) => {
     }
 }
 
+
 export {
     dateToStringHour,
     dateToStringDate

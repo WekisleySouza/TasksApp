@@ -1,4 +1,4 @@
-import { FlatList, ImageBackground, Text, TouchableOpacity, View } from 'react-native';
+import { AppState, FlatList, ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 import images from '../../../styles/images';
 import styles from './styles';
 import TaskButton from '../../../components/TaskButton';
@@ -7,19 +7,33 @@ import icons from '../../../styles/icons';
 import { useEffect, useState } from 'react';
 import ModalAddTask from '../../../components/ModalAddTask';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTasks } from '../../../redux/tasksStateSlice';
+import { fetchTasks, saveTasks } from '../../../redux/tasksStateSlice';
 import ModalTask from '../../../components/ModalTask/index';
 
 export default function Home(){
+    const tasks = useSelector(state => state.tasksState)
     const [showAddPopup, setShowAddPopup] = useState(false)
     const [showTaskPopup, setShowTaskPopup] = useState(false)
     const [selectedTask, setSelectedTask] = useState({})
-    const tasks = useSelector(state => state.tasksState)
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(fetchTasks())
     }, [])
+
+    useEffect(() => {
+        const handleAppStateChange = (nextAppState) => {
+          if (nextAppState === 'background' || nextAppState === 'inactive') {
+            dispatch(saveTasks())
+          }
+        };
+    
+        const subscription = AppState.addEventListener('change', handleAppStateChange);
+    
+        return () => {
+          subscription.remove();
+        };
+    }, []);
 
     const handleShowTaskPopup = (task) => {
         setSelectedTask(task)
@@ -66,6 +80,7 @@ export default function Home(){
                     style={styles.flatListContainer}
                     keyExtractor={(_, index) => index}
                     data={tasks}
+                    extraData={tasks}
                     renderItem={({ item }) => (
                         <TaskButton
                             style={styles.taskButton}

@@ -18,7 +18,6 @@ const tasksStateSlice = createSlice({
             storeTasksAsync(state)
         },
         addTask: (state, { payload }) => {
-            storeTasksAsync([payload])
             return [ ...state, payload ]
         },
         removeTask: (state, { payload }) => {
@@ -32,7 +31,7 @@ const tasksStateSlice = createSlice({
             return newTasks
         },
         updateTask: (state, { payload }) => {
-            const newTasks = state.filter(task => {
+            const newTasks = state.map(task => {
                 const selectedTask = new Task()
                 const currentTask = new Task()
                 selectedTask.taskObject = payload
@@ -42,7 +41,15 @@ const tasksStateSlice = createSlice({
             return newTasks
         },
         toggleTask: (state, { payload }) => {
-
+            const newTasks = state.map(task => {
+                const selectedTask = new Task()
+                const currentTask = new Task()
+                selectedTask.taskObject = payload
+                selectedTask.doneDate = new Date()
+                currentTask.taskObject = task
+                return selectedTask.isEqualsTo(currentTask) ? selectedTask.taskToSlice : task
+            })
+            return newTasks
         },
     },
     extraReducers: (builder) => {

@@ -8,7 +8,17 @@ const storeTasksAsync = async tasks => {
     return storeDataAsync('Tasks', tasks)
 }
 
+const getUserAsync = async () => {
+    return await getDataAsync('User')
+}
+
+const storeUserAsync = async user => {
+    return storeDataAsync('User', user)
+}
+
 export {
     getTasksAsync,
     storeTasksAsync,
+    getUserAsync,
+    storeUserAsync,
 }

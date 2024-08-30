@@ -8,7 +8,7 @@ import { dateToStringDate, dateToStringHour } from '../../functions/aux';
 import MyDateTimePicker from '../MyDateTimePicker';
 import MyIcon from '../MyIcon';
 import icons from '../../styles/icons';
-import { removeTask, updateTask } from '../../redux/tasksStateSlice';
+import { removeTask, toggleTask, updateTask } from '../../redux/tasksStateSlice';
 
 export default function ModalTask({ isVisible, onCancel, taskProp }){
     const [task, setTask] = useState(new Task())
@@ -29,8 +29,9 @@ export default function ModalTask({ isVisible, onCancel, taskProp }){
         dispatch(removeTask(task.taskToSlice))
         onCancel()
     }
-
+    
     const handleToggleTask = () => {
+        dispatch(toggleTask(task.taskToSlice))
         onCancel()
     }
 

@@ -33,7 +33,7 @@ export default function StackRoute(){
     return (
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName='TabNavigator'
+                initialRouteName='Login'
             >
                 {getStacks()}
             </Stack.Navigator>
