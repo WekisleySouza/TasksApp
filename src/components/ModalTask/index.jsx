@@ -8,7 +8,8 @@ import { dateToStringDate, dateToStringHour } from '../../functions/aux';
 import MyDateTimePicker from '../MyDateTimePicker';
 import MyIcon from '../MyIcon';
 import icons from '../../styles/icons';
-import { removeTask, toggleTask, updateTask } from '../../redux/tasksStateSlice';
+import { removeTask, updateTask } from '../../redux/tasksStateSlice';
+import { removeTaskOnline, updateTaskOnline } from '../../data/onlineStorage';
 
 export default function ModalTask({ isVisible, onCancel, taskProp }){
     const [task, setTask] = useState(new Task())
@@ -21,17 +22,14 @@ export default function ModalTask({ isVisible, onCancel, taskProp }){
     }, [taskProp])
 
     const handleConfirm = () => {
+        updateTaskOnline(task.taskToSlice)
         dispatch(updateTask(task.taskToSlice))
         onCancel()
     }
     
     const handleDeleteTask = () => {
+        removeTaskOnline(task.taskToSlice)
         dispatch(removeTask(task.taskToSlice))
-        onCancel()
-    }
-    
-    const handleToggleTask = () => {
-        dispatch(toggleTask(task.taskToSlice))
         onCancel()
     }
 
@@ -73,7 +71,7 @@ export default function ModalTask({ isVisible, onCancel, taskProp }){
                 >
                     <View style={styles.otherButtonsContainer} >
                         <TouchableOpacity
-                            onPress={handleToggleTask}
+                            onPress={onCancel}
                         >
                             <MyIcon
                                 icon={icons.cancell}

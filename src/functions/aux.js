@@ -1,3 +1,5 @@
+import { Alert } from "react-native"
+
 const dateToStringHour = (date) => {
     try {
         const hours = (date.getHours() > 9) ? date.getHours() : `0${date.getHours()}`
@@ -27,8 +29,13 @@ const wait = (time) => {
     return new Promise((resolve) => setTimeout(resolve, time))
 }
 
+const showError = errorMessage => {
+    Alert.alert('Erro', errorMessage)
+}
+
 export {
     dateToStringHour,
     dateToStringDate,
-    wait
+    wait,
+    showError
 }

@@ -1,5 +1,5 @@
 export default class User{
-    constructor(name = "", email = "", password = "") {
+    constructor(name = "Wekisley", email = "wekis@gmail.com", password = "998010") {
         this.isLogged = false;
         this.name = name;
         this.email = email;

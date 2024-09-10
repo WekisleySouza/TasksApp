@@ -27,9 +27,9 @@ export default function Home(){
             dispatch(saveTasks())
           }
         };
-    
+
         const subscription = AppState.addEventListener('change', handleAppStateChange);
-    
+
         return () => {
           subscription.remove();
         };

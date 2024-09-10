@@ -6,9 +6,10 @@ import MyModal from '../MyModal';
 import Task from '../../models/Task';
 import styles from './styles';
 import { useDispatch } from 'react-redux';
-import { addTask } from '../../redux/tasksStateSlice';
 import MyDateTimePicker from '../MyDateTimePicker';
 import { dateToStringDate, dateToStringHour } from '../../functions/aux';
+import { saveTaskOnline } from '../../data/onlineStorage';
+import { addTask } from '../../redux/tasksStateSlice';
 
 export default function ModalAddTask({ isVisible, onCancel }){
     const [task, setTask] = useState(new Task())
@@ -16,8 +17,9 @@ export default function ModalAddTask({ isVisible, onCancel }){
     const [showDatePicker, setShowDatePicker] = useState(false)
     const dispatch = useDispatch()
 
-    const handleConfirm = () => {
-        dispatch(addTask(task.taskToSlice))
+    const handleConfirm = async () => {
+        const id = await saveTaskOnline(task.taskToSlice)
+        dispatch(addTask({ ...task.taskToSlice, id }))
         onCancel()
     }
 

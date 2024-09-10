@@ -1,38 +1,47 @@
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
-import validator from 'validator'
 import styles from './styles';
 import MyIcon from '../../../components/MyIcon';
 import icons from '../../../styles/icons';
 import { useEffect, useState } from 'react';
 import User from '../../../models/User';
 import colors from '../../../styles/colors';
+import { signin, signup } from '../../../data/onlineAuth';
 import { useDispatch } from 'react-redux';
-import { signin, signup } from '../../../redux/userStateSlice';
 
-export default function Login(){
+export default function Login({ navigation }){
     const [user, setUser] = useState(new User())
     const [hasAccount, setHasAccount] = useState(true)
     const [fieldsIsValid, setFieldsIsValid] = useState(true)
-    const [passwordConfirmation, setPasswordConfirmation] = useState('')
+    const [passwordConfirmation, setPasswordConfirmation] = useState('998010')
+    
     const dispatch = useDispatch()
 
     useEffect(() => {
         const changeFieldsValidation = () => {
-            const validation =  validator.isEmail(user.email)
-                                &&  user.password.length > 5
-                                &&(hasAccount
-                                || (user.password === passwordConfirmation
-                                &&  user.name.length > 1))
+            const validation = user.email.includes('.')
+                && user.email.includes('@')
+                && user.email.length > 5
+                && user.password.length > 5
+                && (hasAccount
+                || (user.password === passwordConfirmation
+                && user.name.length > 1))
             setFieldsIsValid(validation)
         }
         changeFieldsValidation()
     }, [user])
 
-    const handleButtonClick = () => {
+    const handleButtonClick = async () => {
         if(hasAccount){
-            dispatch(signin(user.userToSlice))
+            const userInfo = await signin(user.email, user.password)
+            if(userInfo){
+
+                navigation.navigate('Home')
+            }
         } else {
-            dispatch(signup(user.userToSlice))
+            const res = await signup(user.name, user.email, user.password)
+            if(res){
+                setHasAccount(true)
+            }
         }
     }
     
@@ -72,6 +81,7 @@ export default function Login(){
                 <TextInput
                     style={styles.input}
                     placeholder='Digite sua senha...'
+                    secureTextEntry={true}
                     value={user.password}
                     onChangeText={password => setUser(new User(user.name, user.email, password))}
                 />
@@ -81,7 +91,8 @@ export default function Login(){
                     <TextInput
                         style={styles.input}
                         placeholder='Confirme sua senha...'
-                        value={user.passwordConfirmation}
+                        secureTextEntry={true}
+                        value={passwordConfirmation}
                         onChangeText={password => setPasswordConfirmation(password)}
                     />
                 }
