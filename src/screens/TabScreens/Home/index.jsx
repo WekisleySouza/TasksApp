@@ -7,12 +7,12 @@ import icons from '../../../styles/icons';
 import { useEffect, useState } from 'react';
 import ModalAddTask from '../../../components/ModalAddTask';
 import ModalTask from '../../../components/ModalTask/index';
-import { storeTasksAsync } from '../../../data/asyncStorageFunctions';
+import { storeTasksAsync, storeUserAsync } from '../../../data/asyncStorageFunctions';
 import { getTasksOnline, toggleTaskOnline } from '../../../data/onlineStorage';
 import { showError, wait } from '../../../functions/aux';
 import months from '../../../mock/months';
 
-export default function Home(){
+export default function Home({ navigation }){
     const [tasks, setTasks] = useState([])
     const [showAddPopup, setShowAddPopup] = useState(false)
     const [showTaskPopup, setShowTaskPopup] = useState(false)
@@ -65,6 +65,12 @@ export default function Home(){
     const handleOnCheck = async (task) => {
     }
 
+    const logout = () => {
+        storeTasksAsync(null)
+        storeUserAsync(null)
+        navigation.navigate('Login')
+    }
+
     return (
         <View style={styles.container} >
             <ModalTask
@@ -95,6 +101,14 @@ export default function Home(){
                                 icon={icons.calendar}
                                 style={styles.icon}
                             />
+                            <TouchableOpacity
+                                onPress={logout}
+                            > 
+                                <MyIcon
+                                    icon={icons.logout}
+                                    style={styles.icon}
+                                />
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </ImageBackground>

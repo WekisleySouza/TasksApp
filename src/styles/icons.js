@@ -12,6 +12,7 @@ import plus_white from '../assets/icons/plus_white.png'
 import trash_yellow from '../assets/icons/trash_yellow.png'
 import cancell_yellow from '../assets/icons/cancell_yellow.png'
 import logo from '../assets/icons/logo_white.png'
+import logout from '../assets/icons/logout.png'
 
 export default {
     home: home_black,
@@ -25,5 +26,6 @@ export default {
     plus: plus_white,
     trash: trash_yellow,
     cancell: cancell_yellow,
-    logo
+    logo,
+    logout
 }

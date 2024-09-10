@@ -9,11 +9,13 @@ import { setDefaultToken } from '../../../data/onlineAuth';
 export default function SplashScreen({ navigation }){
     useEffect(() => {
         const goToNextPage = async () => {
+            let logged = false;
             await getUserAsync().then(localUser => {
                 if(localUser){
+                    logged = true
                     setDefaultToken(localUser.token)
                 }
-                navigation.navigate(localUser.token ? 'TabRoute' : 'Login')
+                navigation.navigate(logged ? 'TabRoute' : 'Login')
             })
         }
 

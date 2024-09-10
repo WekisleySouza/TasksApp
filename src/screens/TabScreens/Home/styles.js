@@ -25,10 +25,12 @@ export default StyleSheet.create({
     },
     topIconsContainer: {
         flex: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'flex-start',
-        paddingBottom: 22,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingBottom: 0,
         paddingLeft: 40,
+        paddingRight: 40,
     },
     icon: {
         width: 40,
