@@ -39,6 +39,7 @@ export default StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: colors.tertiaryColor,
         padding: 20,
+        color: '#000'
     },
     button: {
         backgroundColor: colors.secondaryColor,
