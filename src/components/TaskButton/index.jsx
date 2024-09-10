@@ -3,15 +3,18 @@ import styles from './styles';
 import CheckBox from '../CheckBox';
 import { dateToStringHour } from '../../functions/aux';
 
-export default function TaskButton({ task, onClick, style }){
+export default function TaskButton({ task, onCheck, onClick, style }){
     return (
         <View style={[ styles.container, style ]} >
             <View style={styles.topContainer} >
-                <View style={styles.topCheckContainer} >
+                <TouchableOpacity
+                    style={styles.topCheckContainer}
+                    onPress={onCheck}
+                >
                     <CheckBox
                         checked={task && task.checked}
                     />
-                </View>
+                </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.topNameContainer}
                     onPress={onClick}

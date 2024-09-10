@@ -1,13 +1,15 @@
 export default class Task{
-    constructor(title = '', description = '', toDoDate = '', duration = 0, doneDate = ''){
+    constructor(title = '', description = '', toDoDate = '', duration = 0, doneDate = null){
+        this.id = null
         this._title = title
         this._description = description
         this._toDoDate = typeof(toDoDate) == 'string' ? toDoDate : toDoDate.toISOString()
         this._duration = duration
-        this._doneDate = typeof(doneDate) == 'string' ? doneDate : doneDate.toISOString()
+        this._doneDate = doneDate
     }
 
     set taskObject(object){
+        this.id = object.id
         this._title = object.title
         this._description = object.description
         this._toDoDate = typeof(object.toDoDate) == 'string' ? object.toDoDate : object.toDoDate.toISOString()
@@ -64,7 +66,7 @@ export default class Task{
     }
 
     get doneDate(){
-        return this._doneDate.length > 0 ? new Date(this._doneDate) : new Date()
+        return this._doneDate
     }
     
     set doneDate(date){

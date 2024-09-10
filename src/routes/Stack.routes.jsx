@@ -10,7 +10,7 @@ const Stack = createNativeStackNavigator()
 const getStacks = () => {
     const stacks = [
         {
-            name: 'Home',
+            name: 'TabRoute',
             component: TabRoute,
         },
         {

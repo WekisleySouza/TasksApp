@@ -8,12 +8,11 @@ const signin = async (email, password) => {
             email,
             password
         })
-        axios.defaults.headers.common['Authorization'] = `bearer ${res.data.token}`
+        setDefaultToken(res.data.token)
 
-        return true
+        return res.data
     } catch (e){
-        console.log(e)
-        showError('Erro ao fazer login!')
+        showError('Impossível fazer login!')
         return false
     }
 }
@@ -27,12 +26,17 @@ const signup = async (name, email, password) => {
         })
         return true
     } catch (e){
-        showError('Erro ao criar conta!')
+        showError('Impossível criar conta!')
         return false
     }
 }
 
+const setDefaultToken = token => {
+    axios.defaults.headers.common['Authorization'] = `bearer ${token}`
+}
+
 export {
     signin,
-    signup
+    signup,
+    setDefaultToken,
 }

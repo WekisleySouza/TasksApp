@@ -5,32 +5,32 @@ import MyModal from '../MyModal';
 
 import Task from '../../models/Task';
 import styles from './styles';
-import { useDispatch } from 'react-redux';
 import MyDateTimePicker from '../MyDateTimePicker';
-import { dateToStringDate, dateToStringHour } from '../../functions/aux';
+import { dateToStringDate, dateToStringHour, showError } from '../../functions/aux';
 import { saveTaskOnline } from '../../data/onlineStorage';
-import { addTask } from '../../redux/tasksStateSlice';
 
 export default function ModalAddTask({ isVisible, onCancel }){
-    const [task, setTask] = useState(new Task())
+    const [task, setTask] = useState({
+        title: '',
+        description: '',
+        toDoDate: new Date(),
+        duration: 0,
+        doneDate: null,
+    })
     const [showTimePicker, setShowTimePicker] = useState(false)
     const [showDatePicker, setShowDatePicker] = useState(false)
-    const dispatch = useDispatch()
 
     const handleConfirm = async () => {
-        const id = await saveTaskOnline(task.taskToSlice)
-        dispatch(addTask({ ...task.taskToSlice, id }))
+        await saveTaskOnline(task).then(id => {
+            if(id){
+                onCancel()
+            } else {
+                showError('Não foi possível salvar a tarefa!')
+            }
+        })
         onCancel()
     }
 
-    const handleTitleChange = (text) => {
-        setTask(new Task(text, task.description, task.toDoDate, task.duration, task.doneDate));
-    };
-
-    const handleDescriptionChange = (text) => {
-        setTask(new Task(task.title, text, task.toDoDate, task.duration, task.doneDate));
-    };
-    
     return (
         <MyModal
             isVisible={isVisible}
@@ -64,7 +64,7 @@ export default function ModalAddTask({ isVisible, onCancel }){
                             style={[styles.input, styles.titleInput]}
                             placeholder='Título da Tarefa'
                             value={task.title}
-                            onChangeText={handleTitleChange}
+                            onChangeText={title => setTask({ ...task, title })}
                         />
                     </View>
                     <View style={styles.dateTimeContainer} >
@@ -91,7 +91,7 @@ export default function ModalAddTask({ isVisible, onCancel }){
                             multiline={true}
                             placeholder='Descreva a tarefa aqui...'
                             value={task.description}
-                            onChangeText={handleDescriptionChange}
+                            onChangeText={description => setTask({ ...task, description })}
                         />
                     </View>
                     <View style={styles.buttonsContainer} >

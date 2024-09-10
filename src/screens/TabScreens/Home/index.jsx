@@ -6,38 +6,63 @@ import MyIcon from '../../../components/MyIcon';
 import icons from '../../../styles/icons';
 import { useEffect, useState } from 'react';
 import ModalAddTask from '../../../components/ModalAddTask';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchTasks, saveTasks } from '../../../redux/tasksStateSlice';
 import ModalTask from '../../../components/ModalTask/index';
+import { storeTasksAsync } from '../../../data/asyncStorageFunctions';
+import { getTasksOnline, toggleTaskOnline } from '../../../data/onlineStorage';
+import { showError, wait } from '../../../functions/aux';
+import months from '../../../mock/months';
 
 export default function Home(){
-    const tasks = useSelector(state => state.tasksState)
+    const [tasks, setTasks] = useState([])
     const [showAddPopup, setShowAddPopup] = useState(false)
     const [showTaskPopup, setShowTaskPopup] = useState(false)
     const [selectedTask, setSelectedTask] = useState({})
-    const dispatch = useDispatch()
+    const [currentDate, setCurrentDate] = useState(new Date())
 
     useEffect(() => {
-        dispatch(fetchTasks())
-    }, [])
+        const getTasks = async () => {
+            await wait(10)
+            await getTasksOnline().then((tasks) => {
+                if(tasks) {
+                    const newTasks = tasks.map((task) => { 
+                        return {
+                            ...task,
+                            toDoDate: new Date(task.toDoDate),
+                            doneDate: task.doneDate ? new Date(task.doneDate) : null,
+                        }
+                    })
+                    setTasks(newTasks)
+                }else{
+                    showError('Não foi possível carregar as tarefas!')
+                }
+            })
+        }
 
+        if(!showAddPopup && !showTaskPopup){
+            getTasks()
+        }
+    }, [showAddPopup, showTaskPopup])
+    
     useEffect(() => {
         const handleAppStateChange = (nextAppState) => {
-          if (nextAppState === 'background' || nextAppState === 'inactive') {
-            dispatch(saveTasks())
-          }
+            if (nextAppState === 'background' || nextAppState === 'inactive') {
+                storeTasksAsync(tasks)
+            }
         };
-
+        
         const subscription = AppState.addEventListener('change', handleAppStateChange);
 
         return () => {
-          subscription.remove();
+            subscription.remove();
         };
     }, []);
 
     const handleShowTaskPopup = (task) => {
         setSelectedTask(task)
         setShowTaskPopup(true)
+    }
+
+    const handleOnCheck = async (task) => {
     }
 
     return (
@@ -59,10 +84,10 @@ export default function Home(){
                     <View style={styles.topContainer} >
                         <View style={styles.topTextContainer} >
                             <Text style={styles.topContainerText} >
-                                22 de
+                                {`${currentDate.getDate()} de`}
                             </Text>
                             <Text style={styles.topContainerText} >
-                                Agosto
+                                {months[currentDate.getMonth() - 1]}
                             </Text>
                         </View>
                         <View style={styles.topIconsContainer} >
@@ -86,6 +111,7 @@ export default function Home(){
                             style={styles.taskButton}
                             task={item}
                             onClick={() => handleShowTaskPopup(item)}
+                            onCheck={() => handleOnCheck(item)}
                         />
                     )}
                 />

@@ -1,29 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { storeUserAsync } from "../data/asyncStorageFunctions";
 
 const userStateSlice = createSlice({
     name: 'user',
     initialState: {
         name: '',
         email: '',
-        logged: false
+        token: null
     },
     reducers: {
-        saveUser: (state, { payload }) => {
-            storeUserAsync(payload)
-            return { ...state, ...payload }
-        },
-        loadUser: (state) => {
-
-        },
         setUser: (state, { payload }) => {
-
-        }
-    },
+            return { ...state, ...payload };
+        },
+    }
 })
 
 export const {
-    saveUser,
+    saveUserLocal,
     loadUser,
     setUser
 } = userStateSlice.actions;

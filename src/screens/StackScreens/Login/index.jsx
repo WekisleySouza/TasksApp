@@ -7,14 +7,13 @@ import User from '../../../models/User';
 import colors from '../../../styles/colors';
 import { signin, signup } from '../../../data/onlineAuth';
 import { useDispatch } from 'react-redux';
+import { storeUserAsync } from '../../../data/asyncStorageFunctions';
 
 export default function Login({ navigation }){
     const [user, setUser] = useState(new User())
     const [hasAccount, setHasAccount] = useState(true)
     const [fieldsIsValid, setFieldsIsValid] = useState(true)
-    const [passwordConfirmation, setPasswordConfirmation] = useState('998010')
-    
-    const dispatch = useDispatch()
+    const [passwordConfirmation, setPasswordConfirmation] = useState('')
 
     useEffect(() => {
         const changeFieldsValidation = () => {
@@ -34,8 +33,8 @@ export default function Login({ navigation }){
         if(hasAccount){
             const userInfo = await signin(user.email, user.password)
             if(userInfo){
-
-                navigation.navigate('Home')
+                storeUserAsync(userInfo)
+                navigation.navigate('TabRoute')
             }
         } else {
             const res = await signup(user.name, user.email, user.password)

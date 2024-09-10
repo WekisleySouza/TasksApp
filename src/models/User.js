@@ -1,8 +1,8 @@
 export default class User{
-    constructor(name = "Wekisley", email = "wekis@gmail.com", password = "998010") {
-        this.isLogged = false;
+    constructor(name = "", email = "", password = "") {
         this.name = name;
         this.email = email;
+        this.token = null;
         this.password = password;
     }
 
@@ -10,6 +10,7 @@ export default class User{
         return {
             name: this.name,
             email: this.email,
+            token: this.token,
             password: this.password
         }
     }

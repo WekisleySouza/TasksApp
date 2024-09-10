@@ -30,7 +30,7 @@ const wait = (time) => {
 }
 
 const showError = errorMessage => {
-    Alert.alert('Erro', errorMessage)
+    Alert.alert('Erro', `Erro: ${errorMessage}`)
 }
 
 export {

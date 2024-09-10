@@ -2,45 +2,33 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import MyModal from '../MyModal';
 import styles from './styles';
 import Task from '../../models/Task';
-import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { dateToStringDate, dateToStringHour } from '../../functions/aux';
 import MyDateTimePicker from '../MyDateTimePicker';
 import MyIcon from '../MyIcon';
 import icons from '../../styles/icons';
-import { removeTask, updateTask } from '../../redux/tasksStateSlice';
 import { removeTaskOnline, updateTaskOnline } from '../../data/onlineStorage';
 
 export default function ModalTask({ isVisible, onCancel, taskProp }){
-    const [task, setTask] = useState(new Task())
+    const [task, setTask] = useState({ ...taskProp })
     const [showTimePicker, setShowTimePicker] = useState(false)
     const [showDatePicker, setShowDatePicker] = useState(false)
-    const dispatch = useDispatch()
 
     useEffect(() => {
-        setTask(new Task(taskProp.title, taskProp.description, taskProp.toDoDate, taskProp.duration, taskProp.doneDate))
+        setTask({ ...taskProp })
     }, [taskProp])
 
     const handleConfirm = () => {
-        updateTaskOnline(task.taskToSlice)
-        dispatch(updateTask(task.taskToSlice))
+        updateTaskOnline(task)
         onCancel()
     }
     
     const handleDeleteTask = () => {
-        removeTaskOnline(task.taskToSlice)
-        dispatch(removeTask(task.taskToSlice))
+        console.log(task)
+        removeTaskOnline(task.id)
         onCancel()
     }
 
-    const handleTitleChange = (text) => {
-        setTask(new Task(text, task.description, task.toDoDate, task.duration, task.doneDate));
-    };
-
-    const handleDescriptionChange = (text) => {
-        setTask(new Task(task.title, text, task.toDoDate, task.duration, task.doneDate));
-    };
-    
     return (
         <MyModal
             isVisible={isVisible}
@@ -92,7 +80,7 @@ export default function ModalTask({ isVisible, onCancel, taskProp }){
                             style={[styles.input, styles.titleInput]}
                             placeholder='Título da Tarefa'
                             value={task.title}
-                            onChangeText={handleTitleChange}
+                            onChangeText={title => setTask({ ...task, title })}
                         />
                     </View>
                     <View style={styles.dateTimeContainer} >
@@ -119,7 +107,7 @@ export default function ModalTask({ isVisible, onCancel, taskProp }){
                             multiline={true}
                             placeholder='Descreva a tarefa aqui...'
                             value={task.description}
-                            onChangeText={handleDescriptionChange}
+                            onChangeText={description => setTask({ ...task, description })}
                         />
                     </View>
                     <View style={styles.buttonsContainer} >
